@@ -9,7 +9,7 @@ public class bullet : MonoBehaviour {
 	Component tmpComp;
 	//public enum direction {up,right,down,left};
 	//bool facingRight=true;
-	playerControls controls;
+//	playerControls controls;
 	playerControls.direction currDirection;
 	bool hurtPlayer =false;
 	bool hurtEnemy=false;
@@ -17,7 +17,7 @@ public class bullet : MonoBehaviour {
 
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
-		controls = player.GetComponent<playerControls> ();
+//		controls = player.GetComponent<playerControls> ();
 		//Debug.Log ("player =="+player);
 		Destroy(gameObject, 1);
 		//currDirection = controls.getDirection ();

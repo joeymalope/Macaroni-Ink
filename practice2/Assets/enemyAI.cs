@@ -96,7 +96,7 @@ public class enemyAI : MonoBehaviour {
 
 
 	void attack(){
-		print (attackDuration);
+	//	print (attackDuration);
 		if (attackDuration > 0.5)
 			attackDuration -= Time.deltaTime;
 		else
@@ -379,6 +379,7 @@ public class enemyAI : MonoBehaviour {
 		anim.SetBool ("isDead",true);	
 		isDead = true;
 	//	thoughts.GetComponent<SpriteRenderer>().enabled=false;
+		Destroy (GetComponent<BoxCollider2D> ());
 		removeScript ();
 
 	}
