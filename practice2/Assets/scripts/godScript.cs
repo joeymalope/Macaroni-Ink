@@ -13,12 +13,20 @@ public class godScript : MonoBehaviour {
 	public Component controllerScript;
 	public Image foodRations;
 	public int maxSize = 3;
+	Vector3[] coordinates;
 	//public bool facingRight= true;
 	// Use this for initialization
 	void Start () {
+		//for(int i=0;i<maxSize;i++)
+		coordinates= new Vector3[maxSize];
+
+		coordinates [0] = new Vector3 (-50,-20,0.0f);
+		coordinates [1] = new Vector3 (50,-26,0.0f);
+		coordinates [2] = new Vector3 (50,26,0.0f);
 		squad = new GameObject[maxSize];
 		for (int i = 0;i<maxSize; i++) {
 			squad[i]= Instantiate(type,transform.position+ new Vector3(5f*squadCount,5f,0),transform.rotation);
+			squad [i].transform.position = coordinates [i];
 		//	squad[i].GetComponent<playerControls>().thoughts= Instantiate(GameObject.Find("thoughts"),transform.position+ new Vector3(5f*squadCount,5f,0),transform.rotation);
 		//	squad[i].GetComponent<playerControls>().thoughts.transform.parent=squad[i].transform;
 		//	squad[i].GetComponent<playerControls>().thoughts.transform.position= new Vector3(0.0f,1.025f,0.0f);
@@ -36,7 +44,7 @@ public class godScript : MonoBehaviour {
 	}
 
 	void decrease(){
-		foodRations.GetComponent<HealthBar> ().decreaseHealth (0.75f);
+		foodRations.GetComponent<HealthBar> ().decreaseHealth (0.75f*maxSize);
 	}
 	// Update is called once per frame
 	void Update () {
@@ -46,8 +54,6 @@ public class godScript : MonoBehaviour {
 			if (Input.GetButtonUp ("Fire2")) {
 				makePlayerNextActive ();	
 			}
-
-
 	}
 
 	void makePlayerNextActive(){

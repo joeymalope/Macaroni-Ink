@@ -18,9 +18,13 @@ public class playerControls : MonoBehaviour {
 	public bool isDead=false,awe=true;
 	public float lastshort=0.0f,fireRate= 0.1f;
 	public bool activePlayer = false;
+	public AudioClip gunSound;
+	public AudioClip activeSound;
+	public AudioSource audio ;
 	// Use this for initialization
 	void Start () {
 		playerAnimator = GetComponent<Animator> ();
+		audio = GetComponent<AudioSource>();
 		//healthBar = GameObject.FindGameObjectWithTag ("healthBar").GetComponent<Image>();
 		InvokeRepeating("aweness",2,Random.Range(2,9));
 	}
@@ -31,6 +35,9 @@ public class playerControls : MonoBehaviour {
 
 	public void activatePlayer(){
 		activePlayer = true;
+		AudioSource tmp = GetComponent<AudioSource>();
+		//activeSound.Pl
+		tmp.PlayOneShot (activeSound);
 	}
 
 	public void deactivatePlayer(){
@@ -43,11 +50,13 @@ public class playerControls : MonoBehaviour {
 
 	// Update is called once per frame
 	public virtual void Update () {
+		//AudioSource tmp = GetComponent<AudioSource>();
 
-		hits = Physics2D.LinecastAll (transform.position, transform.position + new Vector3 (20, 0, 0), 1 << LayerMask.NameToLayer ("wall")); 
+		//audio.PlayOneShot (activeSound);
+		//hits = Physics2D.LinecastAll (transform.position, transform.position + new Vector3 (20, 0, 0), 1 << LayerMask.NameToLayer ("wall")); 
 		//Debug.Log ("something on the right");
-		foreach (RaycastHit2D hit in hits)
-			hit.collider.gameObject.GetComponent<SpriteRenderer> ().color = Color.red;
+	//	foreach (RaycastHit2D hit in hits)
+			//hit.collider.gameObject.GetComponent<SpriteRenderer> ().color = Color.red;
 	}
 
 	public void FixedUpdate(){
@@ -140,7 +149,7 @@ public class playerControls : MonoBehaviour {
 
 			if (Input.GetButton ("Jump")) {
 				playerAnimator.SetBool ("recruiting", true);	
-				//dead ();
+
 			}
 
 			if (Input.GetButtonDown ("Fire1")) {
@@ -148,6 +157,9 @@ public class playerControls : MonoBehaviour {
 				if (Time.time > lastshort + fireRate) {
 					tmp = Instantiate (bullet, gunEnd.transform.position, transform.rotation);
 					lastshort = Time.time;
+				//	gunSound.
+					audio.PlayOneShot(gunSound);
+					print("Sound has to be playing");
 				}
 				tmp.GetComponent<bullet> ().SetHurtEnemy (true);
 				tmp.GetComponent<bullet> ().SetDirection (currDirection);

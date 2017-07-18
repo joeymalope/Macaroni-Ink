@@ -21,7 +21,7 @@ public class CameraFollow : MonoBehaviour {
 			offset= new Vector3 (10f,10f,0); 
 	}
 
-	void update(){
+	void Update(){
 		print (gameManager.GetComponent<godScript>().active);
 		player= gameManager.GetComponent<godScript>().squad[gameManager.GetComponent<godScript>().active % gameManager.GetComponent<godScript>().maxSize];
 	}
