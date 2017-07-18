@@ -20,9 +20,9 @@ public class godScript : MonoBehaviour {
 		//for(int i=0;i<maxSize;i++)
 		coordinates= new Vector3[maxSize];
 
-		coordinates [0] = new Vector3 (-50,-20,0.0f);
-		coordinates [1] = new Vector3 (50,-26,0.0f);
-		coordinates [2] = new Vector3 (50,26,0.0f);
+		coordinates [1] = new Vector3 (-50,-20,0.0f);
+		coordinates [0] = new Vector3 (-20,-7,0.0f);
+		coordinates [2] = new Vector3 (50,0,0.0f);
 		squad = new GameObject[maxSize];
 		for (int i = 0;i<maxSize; i++) {
 			squad[i]= Instantiate(type,transform.position+ new Vector3(5f*squadCount,5f,0),transform.rotation);

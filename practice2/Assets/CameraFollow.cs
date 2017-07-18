@@ -14,15 +14,18 @@ public class CameraFollow : MonoBehaviour {
 	{
 	//	offset = new Vector3 (10f,10f,0); 
 		//Calculate and store the offset value by getting the distance between the player's position and camera's position.
-		player= gameManager.GetComponent<godScript>().squad[gameManager.GetComponent<godScript>().active];
+		player= gameManager.GetComponent<godScript>().squad[gameManager.GetComponent<godScript>().active% gameManager.GetComponent<godScript>().maxSize];
 		if(player!=null)
 			offset = transform.position - player.transform.position;
 		else 
 			offset= new Vector3 (10f,10f,0); 
+
+		if (player == null)
+			print ("player is null");
 	}
 
 	void Update(){
-		print (gameManager.GetComponent<godScript>().active);
+		//print (gameManager.GetComponent<godScript>().active);
 		player= gameManager.GetComponent<godScript>().squad[gameManager.GetComponent<godScript>().active % gameManager.GetComponent<godScript>().maxSize];
 	}
 
@@ -30,6 +33,6 @@ public class CameraFollow : MonoBehaviour {
 	void LateUpdate () 
 	{
 		// Set the position of the camera's transform to be the same as the player's, but offset by the calculated offset distance.
-		transform.position = player.transform.position + offset;
+		transform.position = Vector3.Lerp(transform.position, player.transform.position + offset,0.05f);
 	}
 }

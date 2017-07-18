@@ -85,9 +85,9 @@ public class enemyAI : MonoBehaviour {
 
 	//	Debug.Log("upAhead=="+upAhead());
 	//	Debug.Log("canIGoUp=="+canIGoUp());
-//		Debug.Log("canIGoDown=="+canIGoDown());
+	//	Debug.Log("canIGoDown=="+canIGoDown());
 	//	Debug.Log("canIGoRight=="+canIGoRight());
-//		Debug.Log("canIGoLeft=="+canIGoLeft());
+	//	Debug.Log("canIGoLeft=="+canIGoLeft());
 //			Debug.DrawRay (transform.position,transform.position+new Vector3(5,0,0),Color.green,20);
 //			Debug.DrawRay (transform.position,transform.position+new Vector3(-5,0,0),Color.green,20);
 //			Debug.DrawRay (transform.position,transform.position+new Vector3(0,5,0),Color.green,20);
@@ -104,7 +104,7 @@ public class enemyAI : MonoBehaviour {
 
 		if (reIterate)
 			reIterate = false;	
-	//	StartCoroutine ("shoot");
+		 shoot();
 	}
 
 
@@ -149,6 +149,7 @@ public class enemyAI : MonoBehaviour {
 		}
 
 		if (upAhead ()) {
+			print ("direction should change!!");
 			if (canIGoUp () && validDirection (0)) {
 				currDirection = playerControls.direction.up;
 			} else if (canIGoRight () && validDirection (1)) {
@@ -248,24 +249,24 @@ public class enemyAI : MonoBehaviour {
 	}
 
 	bool upAhead(){
-		Debug.Log ("in upAhead()");
+		//Debug.Log ("in upAhead()");
 		switch(currDirection){
 		case playerControls.direction.up:{
 			//	Debug.Log ("-- up && linecast =="+Physics2D.Linecast (transform.position, transform.position+new Vector3(0,4,0), 1 << LayerMask.NameToLayer("wall")));
 //				Debug.DrawRay(transform.position, transform.position+new Vector3(0,4,0))
-				return Physics2D.Linecast (transform.position, transform.position+new Vector3(0,4,0), 1 << LayerMask.NameToLayer("wall"));
+				return Physics2D.Linecast (transform.position, transform.position+new Vector3(0,4,0), 1 << LayerMask.NameToLayer("wall")) && Physics2D.Linecast (transform.position, transform.position+new Vector3(0,4,0), 1 << LayerMask.NameToLayer("enemy")) ;
 			}
 		case playerControls.direction.right:{
 			//	Debug.Log ("-- right");
-				return Physics2D.Linecast (transform.position, transform.position+new Vector3(4,0,0), 1 << LayerMask.NameToLayer("wall"));
+				return Physics2D.Linecast (transform.position, transform.position+new Vector3(4,0,0), 1 << LayerMask.NameToLayer("wall")) && Physics2D.Linecast (transform.position, transform.position+new Vector3(4,0,0), 1 << LayerMask.NameToLayer("enemy"));
 			}
 		case playerControls.direction.down:{
 		//		Debug.Log ("-- down");
-				return Physics2D.Linecast (transform.position, transform.position+new Vector3(0,-4,0), 1 << LayerMask.NameToLayer("wall"));
+				return Physics2D.Linecast (transform.position, transform.position+new Vector3(0,-4,0), 1 << LayerMask.NameToLayer("wall")) &&  Physics2D.Linecast (transform.position, transform.position+new Vector3(0,-4,0), 1 << LayerMask.NameToLayer("enemy"));
 			}
 		case playerControls.direction.left:{
 		//		Debug.Log ("-- left");
-				return Physics2D.Linecast (transform.position, transform.position+new Vector3(-4,0,0), 1 << LayerMask.NameToLayer("wall"));
+				return Physics2D.Linecast (transform.position, transform.position+new Vector3(-4,0,0), 1 << LayerMask.NameToLayer("wall")) && Physics2D.Linecast (transform.position, transform.position+new Vector3(-4,0,0), 1 << LayerMask.NameToLayer("enemy")) ;
 			}
 		}
 
@@ -319,18 +320,18 @@ public class enemyAI : MonoBehaviour {
 
 
 	bool canIGoUp(){
-		return !Physics2D.Linecast (transform.position, transform.position + new Vector3 (0, 5, 0), 1 << LayerMask.NameToLayer ("wall"));
+		return !Physics2D.Linecast (transform.position, transform.position + new Vector3 (0, 5, 0), 1 << LayerMask.NameToLayer ("wall")) ||  !Physics2D.Linecast (transform.position, transform.position + new Vector3 (0, 5, 0), 1 << LayerMask.NameToLayer ("enemy"));
 	}
 	bool canIGoDown(){
-		return !Physics2D.Linecast (transform.position, transform.position+new Vector3(0,-5,0), 1 << LayerMask.NameToLayer("wall"));
+		return !Physics2D.Linecast (transform.position, transform.position+new Vector3(0,-5,0), 1 << LayerMask.NameToLayer("wall")) || !Physics2D.Linecast (transform.position, transform.position+new Vector3(0,-5,0), 1 << LayerMask.NameToLayer("enemy"));
 	}
 
 	bool canIGoRight(){
-		return !Physics2D.Linecast (transform.position, transform.position+new Vector3(5,0,0), 1 << LayerMask.NameToLayer("wall"));
+		return !Physics2D.Linecast (transform.position, transform.position+new Vector3(5,0,0), 1 << LayerMask.NameToLayer("wall")) || !Physics2D.Linecast (transform.position, transform.position+new Vector3(5,0,0), 1 << LayerMask.NameToLayer("enemy"));
 	}
 
 	bool canIGoLeft(){
-		return !Physics2D.Linecast (transform.position, transform.position+new Vector3(-5,0,0), 1 << LayerMask.NameToLayer("wall"));
+		return !Physics2D.Linecast (transform.position, transform.position+new Vector3(-5,0,0), 1 << LayerMask.NameToLayer("wall")) ||  !Physics2D.Linecast (transform.position, transform.position+new Vector3(-5,0,0), 1 << LayerMask.NameToLayer("enemy"));
 	}
 
 	bool playerInSight(){
